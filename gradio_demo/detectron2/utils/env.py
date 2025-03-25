@@ -82,6 +82,7 @@ def _configure_libraries():
     def get_version(module, digit=2):
         return tuple(map(int, module.__version__.split(".")[:digit]))
 
+    # Update version requirements
     # fmt: off
     assert get_version(torch) >= (1, 4), "Requires torch>=1.4"
     import fvcore

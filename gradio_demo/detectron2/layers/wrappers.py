@@ -41,8 +41,14 @@ def shapes_to_tensor(x: List[int], device: Optional[torch.device] = None) -> tor
 def check_if_dynamo_compiling():
     if TORCH_VERSION >= (1, 14):
         from torch._dynamo import is_compiling
-
         return is_compiling()
+    elif TORCH_VERSION >= (2, 0):
+        # For PyTorch 2.x where the API might be different
+        try:
+            from torch._dynamo import is_compiling
+            return is_compiling()
+        except ImportError:
+            return False
     else:
         return False
 
